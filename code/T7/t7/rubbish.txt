@@ -1,0 +1,7 @@
+<!-- const savedata=async()=>{
+  const source=await axios.get('https://tenapi.cn/v2/yiyan');
+  source.data.array.forEach(element => {
+      const sentence=new Sen(element.data,upnum);
+      sentence.value.push=sentence
+  });
+} -->
