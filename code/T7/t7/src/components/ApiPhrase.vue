@@ -1,6 +1,10 @@
 <template>
 <div class="box">
-    <template v-for="phrase in sortedPhrases" :key="phrase.upnum">
+    <div>
+      <button @click="sortmethod=0" class="method">正序排列</button>
+      <button @click="sortmethod=1" class="method">反序排列</button>
+    </div>
+    <template v-for="phrase in sortedPhrases" :key="phrase.sentence">
       <div class="pbox">
         <div class="phrase">{{phrase.sentence||0}}</div>
         <img src="../assets/good.svg" alt="upvote" class="upvote" @click="phrase.upnum++"/>
@@ -14,6 +18,7 @@
 import { ref, onMounted,computed} from 'vue';
 import axios from 'axios';
 
+var sortmethod=ref(0);
 
 //请求数据
 var phrases=ref([]);
@@ -48,7 +53,13 @@ onMounted(() => {
 
 //排序数组
 const sortedPhrases = computed(() => {
-  return [...phrases.value].sort((a, b) => b.upnum - a.upnum);
+  if(sortmethod.value==0){
+     return[...phrases.value].sort((a, b) => b.upnum - a.upnum);
+  }
+  else{
+     return[...phrases.value].sort((a, b) => a.upnum - b.upnum);
+  }
+
 });
 
 </script>
@@ -74,6 +85,18 @@ const sortedPhrases = computed(() => {
   border: 2px solid rgb(130, 110, 101);
   background-color: rgb(250, 239, 233);
   width: 700px;
+}
+
+.method {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  padding: 10px; 
+  border: 2px solid rgb(130, 124, 101);
+  background-color: rgb(248, 250, 233);
+  width: 723.64px;
+  cursor: pointer;
 }
 
 .upvote {
